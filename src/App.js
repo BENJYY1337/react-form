@@ -24,10 +24,10 @@ const App = () => {
     }
   }
 
-  const failMessage = () => {
+  const failMessage = (message) => {
     let formMess = document.querySelector('.form-message')
 
-    formMess.innerHTML = 'Merci de remplir correctement les champs requis *'
+    formMess.innerHTML = message
     formMess.style.opacity = '1'
     formMess.style.background = 'rgb(253, 87, 87)'
 
@@ -42,6 +42,14 @@ const App = () => {
     formMess.innerHTML = 'Message envoyé ! Nous vous recontacterons dès que possible.'
     formMess.style.background = '#00c1ec'
     formMess.style.opacity = '1'
+
+    document.getElementById('name').classList.remove('error')
+    document.getElementById('email').classList.remove('error')
+    document.getElementById('message').classList.remove('error')
+
+    setTimeout(() => {
+      formMess.style.opacity = '0'
+    }, 5000)
   }
 
   const handleSubmit = (e) => {
@@ -56,7 +64,7 @@ const App = () => {
         message,
       });
     } else {
-      failMessage()
+      failMessage("Merci de remplir correctement les champs requis ")
     }
   };
 
@@ -73,9 +81,10 @@ const App = () => {
         setMessage("");
       })
       .catch(
-        (err) =>
-          document.querySelector('.form-message').innerHTML =
-          "Une erreur s'est produite, veuillez réessayer.")
+        (err) => {
+          failMessage("Une erreur s'est produite, veuillez réessayer.")
+        }
+      )
   };
 
   return (
