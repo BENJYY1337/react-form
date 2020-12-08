@@ -64,7 +64,7 @@ const App = () => {
         message,
       });
     } else {
-      failMessage("Merci de remplir correctement les champs requis ")
+      failMessage("Merci de remplir correctement les champs requis *")
     }
   };
 
