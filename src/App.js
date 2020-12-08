@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css"
 
 const App = () => {
   const [name, setName] = useState("");
@@ -8,16 +7,37 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const isEmail = () => {
+    let mail = document.getElementById('not-mail')
+    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (email.match(regex)) {
+      mail.style.display = 'none'
+      return true
+    } else {
+      mail.style.display = 'block'
+      mail.style.animation = 'dongle 1s'
+      setTimeout(() => {
+        mail.style.animation = 'none'
+      }, 1000)
+      return false
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    sendFeedback("***TEMPLAYE_ID***", {
-      name,
-      company,
-      phone,
-      email,
-      message,
-    });
+    if (name && isEmail() && message) {
+      sendFeedback("template_5noz07n", {
+        name,
+        company,
+        phone,
+        email,
+        message,
+      });
+    } else {
+      console.log('error');
+    }
   };
 
   const sendFeedback = (templateId, variables) => {
