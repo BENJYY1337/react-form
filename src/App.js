@@ -24,6 +24,26 @@ const App = () => {
     }
   }
 
+  const failMessage = () => {
+    let formMess = document.querySelector('.form-message')
+
+    formMess.innerHTML = 'Merci de remplir correctement les champs requis *'
+    formMess.style.opacity = '1'
+    formMess.style.background = 'rgb(253, 87, 87)'
+
+    document.getElementById('name').classList.add('error')
+    document.getElementById('email').classList.add('error')
+    document.getElementById('message').classList.add('error')
+  }
+
+  const successMessage = () => {
+    let formMess = document.querySelector('.form-message')
+
+    formMess.innerHTML = 'Message envoyé ! Nous vous recontacterons dès que possible.'
+    formMess.style.background = '#00c1ec'
+    formMess.style.opacity = '1'
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -36,7 +56,7 @@ const App = () => {
         message,
       });
     } else {
-      console.log('error');
+      failMessage()
     }
   };
 
@@ -45,7 +65,7 @@ const App = () => {
     window.emailjs
       .send("gmail", templateId, variables)
       .then((res) => {
-        console.log('success !');
+        successMessage()
         setName("");
         setCompany("");
         setPhone("");
